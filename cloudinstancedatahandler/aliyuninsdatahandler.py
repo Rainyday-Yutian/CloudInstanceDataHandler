@@ -188,6 +188,7 @@ class AliyunInstance(BasicDataFrame):
     
     # v1.1.0+ 关于credentials，后期版本考虑移除self.Credentials，当有实际请求时再传入self.ak,self.sk来构建，构造后有效期应为31分钟，华为则更短
     def __init__(self,ak,sk)-> None:
+        super().__init__()
         # self.AK = ak
         # self.SK = sk
         self.InsType = self.__class__.__name__
@@ -432,8 +433,8 @@ class AliyunInstance(BasicDataFrame):
     #     pass
 
 class ECS(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_ecs_dashboard"
         self.ProductCategory = "ecs"
         self.ENIsFromAllECS = None
@@ -487,8 +488,8 @@ class ECS(AliyunInstance):
     
 
 class Disks(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_ecs_dashboard"
         self.ProductCategory = "ecs"
 
@@ -530,8 +531,8 @@ class Disks(AliyunInstance):
         # return df
     
 class ENI(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         
     # def getENIInfo(self,region_id,instance_list=None,page_size=100):
     #     client = AcsClient(region_id=region_id, credential=self.Credentials)
@@ -579,8 +580,8 @@ class ENI(AliyunInstance):
         return df
     
 class RDS(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_rds_dashboard"
         self.ProductCategory = "rds"
 
@@ -605,8 +606,8 @@ class RDS(AliyunInstance):
         return df
 
 class SLB(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_slb_dashboard"
         self.ProductCategory = "slb"
     
@@ -631,8 +632,8 @@ class SLB(AliyunInstance):
         return df
 
 class NGW(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_nat_gateway"
         self.ProductCategory = "nat_gateway"
 
@@ -665,8 +666,8 @@ class NGW(AliyunInstance):
         return df
 
 class IPv6(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_ipv6_bandwidth"
         self.ProductCategory = "ipv6gateway"
 
@@ -734,8 +735,8 @@ class IPv6(AliyunInstance):
                 print(f"No {self.InsType} in {region}!")
     
 class Redis(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_kvstore"
         self.ProductCategory = ["kvstore_standard","kvstore_splitrw","kvstore_sharding"]
 
@@ -808,8 +809,8 @@ class Redis(AliyunInstance):
 
 # MongoDB
 class DDS(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_mongodb"
         self.ProductCategory = "mongodb_replicaset"
         self.InsType = "replicate"
@@ -833,8 +834,8 @@ class DDS(AliyunInstance):
         return df_data
 
 class EIP(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_vpc_eip"
         self.ProductCategory = "eip"
 
@@ -963,8 +964,8 @@ class EIP(AliyunInstance):
     #     return df_data
                 
 class CBWP(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_bandwidth_package"
         self.ProductCategory = "sharebandwidthpackages"
         self.EIPsFromAllCBWP = None
@@ -1159,22 +1160,22 @@ class OSS(AliyunInstance):
                 # OSS获取非国内数据时因线路问题可能导致超时，非代码异常，当前方案加入单线程重试，后续也可考虑跳过所有超时后，再返回重试将空缺部分回填
 
 class CenBWP(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_cen"
         self.ProductCategory = "cen_area"
         self.Dimensions = 'bandwidthPackageId'
 
 class CenRegion(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_cen"
         self.ProductCategory = "cen_region"
         self.Dimensions = 'cenId'
 
 class DDoSDip(AliyunInstance):
-    def __init__(self,Credentials)-> None:
-        super().__init__(Credentials)
+    def __init__(self,ak,sk)-> None:
+        super().__init__(ak,sk)
         self.Namespace = "acs_ddosdip"
         self.ProductCategory = "ddosdip"
         
